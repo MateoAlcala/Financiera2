@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es"> 
+<head>
+<meta charset="utf-8">
+<title>Calculadora de inter&eacute;s compuesto</title>
+<meta name="Trabajo de Financiera interes compuesto">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="gtag/js_id_UA-139545375-1.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-139545375-1');
+</script><link rel="stylesheet" href="bootstrap/4-3-1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+<link rel="stylesheet" href="releases/v5-8-1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="npm/katex_0-10-1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="npm/katex_0-10-1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="npm/katex_0-10-1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false}
+              ]
+          });"></script>
+<script src="ajax/libs/mathjs/5-9-0/math.min.js"></script>
+	</head>
+	<body>
+</nav><div class="container">
+	<h1 class="calculadora-title">Calculadora de inter&eacute;s compuesto</h1>
+</div>
+<div class="container main-box">
+	<div class="row">
+		<div class="col-lg-6">
+			<form>
+				<div class="form-group row">
+					<label for="ci" class="col-sm-5 col-form-label">Capital inicial:</label>
+					<div class="col-sm-7">
+						<div class="input-group mb-2">
+							<input type="number" step="any" min="0" class="form-control" id="ci" placeholder="Capital inicial">
+							<div class="input-group-append">
+								<select class="input-group-text" id="unit">
+								<option value="0">&euro;</option>
+								<option value="1">&dollar;</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-7">
+						<div class="input-group mb-2">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="checkcr">
+								<label class="custom-control-label" for="checkcr"></label>
+							</div>
+						<select class="col input-group-text mb-1" id="unitA">
+							<option value="0">Aportación diaria</option>
+							<option value="1">Aportación semanal</option>
+							<option value="2">Aportación mensual</option>							
+							<option value="3">Aportación trimestral</option>							
+							<option value="4">Aportación cuatrimestral</option>
+							<option value="5">Aportación semestral</option>
+							<option value="6" selected>Aportación anual</option>
+						</select>
+						</div>
+					</div>
+					<div class="col-sm-5">
+						<div class="input-group mb-2">
+							<input type="number" step="any" min="0" class="form-control" id="cr" placeholder="Aportaci&oacute;n">
+							<div class="input-group-append">
+								<select class="input-group-text" id="unit2">
+								<option value="0">&euro;</option>
+								<option value="1">&dollar;</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="i" class="col-sm-5 col-form-label">Tasa de inter&eacute;s anual:</label>
+					<div class="col-sm-7">
+						<div class="input-group mb-2">
+							<input type="number" step="any" class="form-control" id="i" placeholder="Tasa de inter&eacute;s">
+							<div class="input-group-append">
+								<span class="input-group-text">%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="p" class="col-sm-5 col-form-label">Per&iacute;odo:</label>
+					<div class="col-sm-7">
+						<div class="input-group mb-2">
+							<input type="number" step="any" min="0" class="form-control" id="p" placeholder="Per&iacute;odo">
+							<div class="input-group-append">
+								<select class="input-group-text" id="unitP">
+								<option value="0">d&iacute;as</option>
+								<option value="1">semanas</option>
+								<option value="2">meses</option>
+								<option value="3">trimestres</option>
+								<option value="4">cuatrimestres</option>
+								<option value="5">semestres</option>
+								<option value="6" selected>a&ntilde;os</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="unitI" class="col-sm-5 col-form-label mb-2">Pago de intereses:</label>
+					<div class="col-sm-7">
+						<select class="col input-group-text" id="unitI">
+							<option value="0">diariamente</option>
+							<option value="1">semanalmente</option>
+							<option value="2">mensualmente</option>							
+							<option value="3">trimestralmente</option>							
+							<option value="4">cuatrimestralmente</option>
+							<option value="5">semestralmente</option>
+							<option value="6" selected>anualmente</option>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-6">
+			<form>
+				<div class="form-group row">
+					<label for="cf" class="col-sm-5 col-form-label">Capital final:</label>
+					<div class="col-sm-7">
+						<div class="input-group mb-2">
+							<input type="number" step="any" min="0" class="form-control" id="cf" placeholder="Capital final">
+							<div class="input-group-append">
+								<select class="input-group-text" id="unit3">
+								<option value="0">&euro;</option>
+								<option value="1">&dollar;</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="depTotal" class="col-sm-5 col-form-label mb-2">Dep&oacute;sitos totales:</label>
+					<div class="col-sm-7">
+						<input type="text" readonly class="form-control-plaintext" id="depTotal" value="">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="intTotal" class="col-sm-5 col-form-label mb-2">Intereses totales:</label>
+					<div class="col-sm-7">
+						<input type="text" readonly class="form-control-plaintext" id="intTotal" placeholder="">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="tasaintTotal" class="col-sm-5 col-form-label mb-2">Tasa de inter&eacute;s total:</label>
+					<div class="col-sm-7">
+						<input type="text" readonly class="form-control-plaintext" id="tasaintTotal" placeholder="">
+					</div>
+				</div>
+			</form>
+			<div class="row">
+				<div class="col">
+					<p id="message"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<button type="button" class="btn btn-block btn-calcular mb-2" id="calcular">Calcular</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p id="pPlot"></p>
+			<div id="barPlot"></div>
+		</div>
+	</div>
+	<footer class="footer">
+</footer><script src="jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="ajax/libs/popper-js/1-14-7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="bootstrap/4-3-1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="js/54.js"></script></body>
+</html>
